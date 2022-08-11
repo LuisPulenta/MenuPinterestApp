@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:menu_pinterest_app/screens/pinterest_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,17 +8,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Menú Pinterest'),
-        ),
-        body: const Center(
-          child: Text('Menú Pinterest'),
-        ),
-      ),
-    );
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
+        home: PinterestScreen());
   }
 }
