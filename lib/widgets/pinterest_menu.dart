@@ -8,12 +8,14 @@ class PinterestMenu extends StatelessWidget {
   final Color inactiveColor;
   final List<PinterestButton> items;
 
-  PinterestMenu(
-      {this.mostrar = true,
+  const PinterestMenu(
+      {Key? key,
+      this.mostrar = true,
       this.backgroundColor = Colors.white,
       this.activeColor = Colors.black,
       this.inactiveColor = Colors.blueGrey,
-      required this.items});
+      required this.items})
+      : super(key: key);
 
 //---------------------- Pantalla -----------------------
   @override
@@ -22,7 +24,7 @@ class PinterestMenu extends StatelessWidget {
       create: (_) => _MenuModel(),
       child: AnimatedOpacity(
         opacity: mostrar ? 1 : 0,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: Builder(
           builder: (BuildContext context) {
             Provider.of<_MenuModel>(context).backgroundColor = backgroundColor;
@@ -46,19 +48,17 @@ class _PinterestMenuBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = Provider.of<_MenuModel>(context).backgroundColor;
-    Color activeColor = Provider.of<_MenuModel>(context).activeColor;
-    Color inactiveColor = Provider.of<_MenuModel>(context).inactiveColor;
     return Container(
         child: child,
         width: 250,
         height: 60,
         decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: const BorderRadius.all(const Radius.circular(100)),
-            boxShadow: [
-              const BoxShadow(
+            borderRadius: const BorderRadius.all(Radius.circular(100)),
+            boxShadow: const [
+              BoxShadow(
                 color: Colors.black38,
-                offset: const Offset(10, 10),
+                offset: Offset(10, 10),
                 blurRadius: 10,
               )
             ]));
@@ -93,14 +93,12 @@ class _PinterestMenuButton extends StatelessWidget {
     final itemSeleccionado = Provider.of<_MenuModel>(context).itemSeleccionado;
     final menuModel = Provider.of<_MenuModel>(context);
     return GestureDetector(
-      child: Container(
-        child: Icon(
-          item.icon,
-          size: itemSeleccionado == index ? 35 : 20,
-          color: itemSeleccionado == index
-              ? menuModel.activeColor
-              : menuModel.inactiveColor,
-        ),
+      child: Icon(
+        item.icon,
+        size: itemSeleccionado == index ? 35 : 20,
+        color: itemSeleccionado == index
+            ? menuModel.activeColor
+            : menuModel.inactiveColor,
       ),
       behavior: HitTestBehavior.translucent,
       onTap: () {

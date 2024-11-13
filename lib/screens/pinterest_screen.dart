@@ -15,12 +15,12 @@ class PinterestScreen extends StatelessWidget {
       create: (_) => _MenuModel(),
       child: Scaffold(
           appBar: AppBar(
-            title: Text('Pinterest'),
+            title: const Text('Pinterest'),
             centerTitle: true,
           ),
           body: Stack(
             children: [
-              PinterestGrid(),
+              const PinterestGrid(),
               _PinterestMenuLocation(),
             ],
           )),
@@ -36,7 +36,7 @@ class _PinterestMenuLocation extends StatelessWidget {
     final mostrar = Provider.of<_MenuModel>(context).mostrar;
     return Positioned(
       bottom: 10,
-      child: Container(
+      child: SizedBox(
         width: widthPantalla,
         child: Align(
           child: PinterestMenu(
@@ -76,6 +76,8 @@ class _PinterestMenuLocation extends StatelessWidget {
 //**************************** PinterestGrid *******************************
 
 class PinterestGrid extends StatefulWidget {
+  const PinterestGrid({Key? key}) : super(key: key);
+
   @override
   State<PinterestGrid> createState() => _PinterestGridState();
 }
@@ -114,13 +116,13 @@ class _PinterestGridState extends State<PinterestGrid> {
   Widget build(BuildContext context) {
     return GridView.custom(
       controller: controller,
-      physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       gridDelegate: SliverWovenGridDelegate.count(
         crossAxisCount: 2,
         pattern: [
-          WovenGridTile(1),
-          WovenGridTile(
+          const WovenGridTile(1),
+          const WovenGridTile(
             5 / 7,
             crossAxisRatio: 0.9,
             alignment: AlignmentDirectional.centerEnd,
@@ -143,7 +145,7 @@ class _PinterestItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.all(Radius.circular(30))),
       child: Center(
@@ -160,10 +162,10 @@ class _PinterestItem extends StatelessWidget {
 class _MenuModel with ChangeNotifier {
   bool _mostrar = true;
 
-  bool get mostrar => this._mostrar;
+  bool get mostrar => _mostrar;
 
   set mostrar(bool valor) {
-    this._mostrar = valor;
+    _mostrar = valor;
     notifyListeners();
   }
 }
