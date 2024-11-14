@@ -75,8 +75,13 @@ class _MenuItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(menuItems.length,
-          (index) => _PinterestMenuButton(index, menuItems[index])),
+      children: List.generate(
+        menuItems.length,
+        (index) => _PinterestMenuButton(
+          index,
+          menuItems[index],
+        ),
+      ),
     );
   }
 }

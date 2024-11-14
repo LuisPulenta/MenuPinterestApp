@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:menu_pinterest_app/widgets/pinterest_menu.dart';
 import 'package:provider/provider.dart';
