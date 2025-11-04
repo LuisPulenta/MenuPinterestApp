@@ -8,16 +8,16 @@ class PinterestMenu extends StatelessWidget {
   final Color inactiveColor;
   final List<PinterestButton> items;
 
-  const PinterestMenu(
-      {Key? key,
-      this.mostrar = true,
-      this.backgroundColor = Colors.white,
-      this.activeColor = Colors.black,
-      this.inactiveColor = Colors.blueGrey,
-      required this.items})
-      : super(key: key);
+  const PinterestMenu({
+    super.key,
+    this.mostrar = true,
+    this.backgroundColor = Colors.white,
+    this.activeColor = Colors.black,
+    this.inactiveColor = Colors.blueGrey,
+    required this.items,
+  });
 
-//---------------------- Pantalla -----------------------
+  //---------------------- Pantalla -----------------------
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -30,9 +30,7 @@ class PinterestMenu extends StatelessWidget {
             Provider.of<_MenuModel>(context).backgroundColor = backgroundColor;
             Provider.of<_MenuModel>(context).activeColor = activeColor;
             Provider.of<_MenuModel>(context).inactiveColor = inactiveColor;
-            return _PinterestMenuBackground(
-              _MenuItems(items),
-            );
+            return _PinterestMenuBackground(_MenuItems(items));
           },
         ),
       ),
@@ -49,19 +47,21 @@ class _PinterestMenuBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     Color backgroundColor = Provider.of<_MenuModel>(context).backgroundColor;
     return Container(
-        child: child,
-        width: 250,
-        height: 60,
-        decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: const BorderRadius.all(Radius.circular(100)),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black38,
-                offset: Offset(10, 10),
-                blurRadius: 10,
-              )
-            ]));
+      width: 250,
+      height: 60,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(100)),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black38,
+            offset: Offset(10, 10),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: child,
+    );
   }
 }
 
@@ -77,10 +77,7 @@ class _MenuItems extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List.generate(
         menuItems.length,
-        (index) => _PinterestMenuButton(
-          index,
-          menuItems[index],
-        ),
+        (index) => _PinterestMenuButton(index, menuItems[index]),
       ),
     );
   }
@@ -98,6 +95,12 @@ class _PinterestMenuButton extends StatelessWidget {
     final itemSeleccionado = Provider.of<_MenuModel>(context).itemSeleccionado;
     final menuModel = Provider.of<_MenuModel>(context);
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        Provider.of<_MenuModel>(context, listen: false).itemSeleccionado =
+            index;
+        item.onPressed();
+      },
       child: Icon(
         item.icon,
         size: itemSeleccionado == index ? 35 : 20,
@@ -105,12 +108,6 @@ class _PinterestMenuButton extends StatelessWidget {
             ? menuModel.activeColor
             : menuModel.inactiveColor,
       ),
-      behavior: HitTestBehavior.translucent,
-      onTap: () {
-        Provider.of<_MenuModel>(context, listen: false).itemSeleccionado =
-            index;
-        item.onPressed();
-      },
     );
   }
 }

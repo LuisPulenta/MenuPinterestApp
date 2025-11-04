@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:menu_pinterest_app/widgets/pinterest_menu.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/pinterest_menu.dart';
 
 //**************************** PinterestScreen *******************************
 
 class PinterestScreen extends StatelessWidget {
-  const PinterestScreen({Key? key}) : super(key: key);
+  const PinterestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => _MenuModel(),
       child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Pinterest'),
-            centerTitle: true,
-          ),
-          body: Stack(
-            children: [
-              const PinterestGrid(),
-              _PinterestMenuLocation(),
-            ],
-          )),
+        appBar: AppBar(title: const Text('Pinterest'), centerTitle: true),
+        body: Stack(
+          children: [const PinterestGrid(), _PinterestMenuLocation()],
+        ),
+      ),
     );
   }
 }
@@ -45,25 +41,29 @@ class _PinterestMenuLocation extends StatelessWidget {
             inactiveColor: Colors.cyan,
             items: [
               PinterestButton(
-                  icon: Icons.pie_chart,
-                  onPressed: () {
-                    print('Icon pie_chart');
-                  }),
+                icon: Icons.pie_chart,
+                onPressed: () {
+                  print('Icon pie_chart');
+                },
+              ),
               PinterestButton(
-                  icon: Icons.search,
-                  onPressed: () {
-                    print('Icon search');
-                  }),
+                icon: Icons.search,
+                onPressed: () {
+                  print('Icon search');
+                },
+              ),
               PinterestButton(
-                  icon: Icons.notifications,
-                  onPressed: () {
-                    print('Icon notifications');
-                  }),
+                icon: Icons.notifications,
+                onPressed: () {
+                  print('Icon notifications');
+                },
+              ),
               PinterestButton(
-                  icon: Icons.supervised_user_circle,
-                  onPressed: () {
-                    print('Icon supervised_user_circle');
-                  }),
+                icon: Icons.supervised_user_circle,
+                onPressed: () {
+                  print('Icon supervised_user_circle');
+                },
+              ),
             ],
           ),
         ),
@@ -75,19 +75,19 @@ class _PinterestMenuLocation extends StatelessWidget {
 //**************************** PinterestGrid *******************************
 
 class PinterestGrid extends StatefulWidget {
-  const PinterestGrid({Key? key}) : super(key: key);
+  const PinterestGrid({super.key});
 
   @override
   State<PinterestGrid> createState() => _PinterestGridState();
 }
 
 class _PinterestGridState extends State<PinterestGrid> {
-//---------------------------- Variables ------------------------------
+  //---------------------------- Variables ------------------------------
   final List<int> items = List.generate(200, (index) => index);
   ScrollController controller = ScrollController();
   double scrollAnterior = 0;
 
-//---------------------------- Pantalla ------------------------------
+  //---------------------------- Pantalla ------------------------------
   @override
   void initState() {
     controller.addListener(() {
@@ -110,7 +110,7 @@ class _PinterestGridState extends State<PinterestGrid> {
     super.dispose();
   }
 
-//---------------------------- Pantalla ------------------------------
+  //---------------------------- Pantalla ------------------------------
   @override
   Widget build(BuildContext context) {
     return GridView.custom(
@@ -129,8 +129,9 @@ class _PinterestGridState extends State<PinterestGrid> {
         ],
       ),
       childrenDelegate: SliverChildBuilderDelegate(
-          (context, index) => _PinterestItem(index: index),
-          childCount: items.length),
+        (context, index) => _PinterestItem(index: index),
+        childCount: items.length,
+      ),
     );
   }
 }
@@ -145,8 +146,9 @@ class _PinterestItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(Radius.circular(30))),
+        color: Colors.blue,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+      ),
       child: Center(
         child: CircleAvatar(
           backgroundColor: Colors.white,
